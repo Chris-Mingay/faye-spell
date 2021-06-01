@@ -1,0 +1,142 @@
+<ion-view>
+	<ion-content class="padding quiz-view">
+
+	
+
+	<div ng-if="data.mode == 'title'">
+
+		<div class="card">
+			<div class="item item-text-wrap text-center">
+				<h1>Faye Spell</h1>
+			</div>
+		</div>
+
+		<button class="button button-full button-positive" ng-click="startQuiz()">
+			Start!
+		</button>
+
+		<div class="card">
+			<label class="item item-input item-select">
+		    	<div class="input-label">
+					Quiz Length
+		    	</div>
+		    	<select ng-model="data.quizLength">
+					<option value="{{i}}" ng-repeat="i in quizSetupOptions.quizLength">{{i}}</option>
+		    	</select>
+	  		</label>
+		</div>
+
+		<div class="card" ng-if="records.hasOwnProperty(data.quizLength)">
+			<div class="item item-calm item-text-wrap finished-card">
+
+				<img src="img/medal.png" class="medal" ng-class="(records[data.quizLength].trophy ? 'has-trophy' : 'no-trophy')"/>
+				<h2>
+					Record: {{records[data.quizLength].bestScore}}
+					
+				</h2>
+				<h3>Set on {{records[data.quizLength].when | date }}</h3>
+
+			</div>
+			<div class="item item-divider">
+				Leaderboard
+			</div>
+			<div class="item item-text-wrap" ng-repeat="item in records[data.quizLength].scores | orderObjectBy:'score' track by $index">
+				Score: {{item.score}} set on {{item.when | date}}
+			</div>
+		</div>
+		<div class="card" ng-if="!records.hasOwnProperty(data.quizLength)">
+			<div class="item item-text-wrap">
+				You've not set any scores for a quiz with {{data.quizLength}} questions yet!
+			</div>
+		</div>
+		
+	</div>
+
+	<div ng-if="data.mode == 'quiz'">
+		<div class="card">
+			<div class="item item-divider">Answered {{data.answered}} of {{data.questions}}</div>
+
+			<div class="item item-text-wrap">
+				<!--<h1>{{activeQuestion.word}}</h1>
+				<p>{{activeQuestion.sentence}}</p>-->
+				<div class="text-center" style="font-size: 300%; color: rgba(0,0,0,1)" ng-show="data.speaking">
+					<i class="icon ion-mic-a"></i>
+				</div>
+				<div class="text-center" style="font-size: 300%; color: rgba(0,0,0,0.1)" ng-show="!data.speaking">
+					<i class="icon ion-mic-a"></i>
+				</div>
+			</div>
+			
+			
+		</div>		
+
+		<div class="button-bar">
+			<button class="button button-positive button-small"  ng-click="sayWord()">Repeat Word</a>
+			<button class="button button-positive button-small" ng-click="saySentence()">Repeat Sentence</a>
+		</div>
+
+		<div class="list list-inset">
+			<label class="item item-input">
+				<i class="icon ion-compose placeholder-icon"></i>
+				<input type="text" placeholder="Spell" ng-model="data.answer" ng-enter="answerQuestion()" id="answerInput" autocomplete="off" autocorrect="off">
+			</label>
+		</div>
+
+		<div class="button-bar">
+			<button class="button button-assertive button-small"  ng-click="goHome()">Give up</a>
+		</div>
+
+	</div>
+
+	<div ng-if="data.mode == 'done'">
+
+		<div class="card">
+			<div ng-if="data.newrecord" class="item item-text-wrap item-balanced finished-record-card">
+
+				<div class="text-center" style="font-size: 300%; color: rgba(255,255,255,1)" ng-show="!data.speaking">
+					<i class="icon ion-happy-outline"></i>
+					
+				</div>
+
+				<div class="text-center">
+					<h1>NEW RECORD!!</h1>
+				</div>
+				
+				<h2>You scored {{data.score}}</h2>
+			</div>
+
+			<div ng-if="!data.newrecord"  class="item item-text-wrap item-calm finished-card">
+
+				<div class="text-center" style="font-size: 300%; color: rgba(255,255,255,1)" ng-show="!data.speaking">
+					<i class="icon ion-checkmark-circled"></i>
+
+				</div>
+				<div class="text-center">
+					<h1>Finished</h1>
+				</div>
+				<h2>You scored {{data.score}}</h2>
+			</div>
+			
+		</div>				
+
+		<button class="button button-full button-positive" ng-click="goHome()">
+			Start Again
+		</button>
+
+		<div class="card list answer-list" ng-if="data.answered > 0">
+			<div class="item item-divider">
+				Your answers:
+			</div>
+			<div class="item item-icon-right" ng-repeat="item in answeredQuestions" ng-class="item.correct ? 'item-balanced' : 'item-assertive'">
+				{{item.word}}
+				<span class="item-note" ng-if="!item.correct">
+					{{item.answer}}
+				</span>
+				<i class="icon" ng-class="item.correct ? 'ion-checkmark-circled' : 'ion-close-circled'"></i>
+			</div>
+		</div>
+
+	</div>
+
+	</ion-content>
+</ion-view>

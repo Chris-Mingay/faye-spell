@@ -1,0 +1,56 @@
+/* Empty. Add your own CSS if you like */
+
+.answer-list .item-note {
+	color: #fff !important;
+}
+
+.finished-card h2, .finished-card h3, .finished-card h1 {
+	color: #fff !important;
+}
+
+.finished-record-card h2, .finished-record-card h3, .finished-record-card h1 {
+	color: #fff !important;
+}
+
+.quiz-view {
+	background-color: #fff;
+}
+
+.box {
+	color: #fff;
+	background-color: #387ef5;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	border: none;
+	padding: 20px;]
+}
+
+.box h1, .box h2 {
+	color: #fff;
+}
+
+.swiper-pagination-bullet {
+	background: #fff;
+}
+
+.intro-button {
+	border: 1px solid #fff !important;
+	border-radius: 5px;
+	box-shadow: 0px 10px 15px rgba(0,0,0,0.33);
+}
+
+.medal {
+	height: 48px;
+	top: 10px;
+	right: 10px;
+	position: absolute;
+}
+
+.has-trophy {
+	opacity: 1;
+}
+
+.no-trophy {
+	opacity: 0.2;
+}
